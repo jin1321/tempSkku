@@ -1,0 +1,24 @@
+.postsList {
+    text-align: center;
+}
+.lf-menu-nav {
+    font-weight: bold;
+    display: flex;
+    margin: auto;
+}
+
+.Table {
+    flex:12;
+    min-width:300px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 15px;
+    justify-content:center;
+    margin-top: 180px;
+    margin-bottom: 200px;
+}
+
+

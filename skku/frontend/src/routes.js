@@ -10,7 +10,8 @@ import About_Members from "./views/About_Members";
 import KNSSE from "./views/KNSSE";
 import Board from "./views/Board";
 import PostNewQuestion from "./views/PostNewQuestion";
-
+import Book from "./views/Book/App";
+import Journal from "./views/Journal/App";
 
 const ROUTES = [
   { path: "/", key: "ROOT", exact: true, component: () => <Home /> },
@@ -19,6 +20,8 @@ const ROUTES = [
   { path: "/about", key: "ABOUT", component: () => <About /> },
   { path: "/board/Newpost", key: "Newpost", component: () => <PostNewQuestion /> },
   { path: "/board", key: "BOARD", component: () => <Board /> },
+  { path: "/research/book", key: "Book", component: () => <Book /> },
+  { path: "/research/journal", key: "Journal", component: () => <Journal /> }
 ];
 
 export default ROUTES;
