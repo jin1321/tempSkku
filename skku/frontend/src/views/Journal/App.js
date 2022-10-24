@@ -91,6 +91,7 @@ import moment from 'moment';
 
 
 
+
 const {BoardContainer, Title} = require('./styles');
 
 
@@ -110,6 +111,20 @@ function Journal() {
     }, []);
 
     console.log(journalItems);
+
+    const downloadFileData = () => {
+      fetch('http://localhost:3001/research/journal_id')
+         .then(response => {
+            response.blob().then(blob => {
+               let url = window.URL.createObjectURL(blob);
+               let a = document.createElement('a');
+               a.href = url;
+               a.download = 'file.json';
+               a.click();
+            });
+            //window.location.href = response.url;
+      });
+   }
     
 
     return(
@@ -150,8 +165,10 @@ function Journal() {
                           <TableCell align="center">{item.file}</TableCell>
                           <TableCell align="center">{moment(item.uploaded_date).format('YYYY-MM-DD')}</TableCell>
                           <TableCell align="center">{item.downloaded_num}</TableCell>
+                          
                         </TableRow>
                       )}
+            
             
             
             
