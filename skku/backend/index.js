@@ -5,11 +5,11 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 // parse application/json
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.urlencoded({extended: true}));
 // serving static files
-app.use('/uploads', express.static('uploads'));
+// app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
 const db = mysql.createConnection({
@@ -39,36 +39,36 @@ app.get("/", (req, res)=>{
 
 //게시판1 CREATE 
 //출처: https://www.tutsmake.com/node-js-mysql-rest-api-file-upload/
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-     cb(null, 'uploads');
-  },
-  filename: function (req, file, cb) {
-     cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
-  }
-});
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//      cb(null, 'uploads');
+//   },
+//   filename: function (req, file, cb) {
+//      cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+//   }
+// });
 
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage });
 
-app.post("/book/create", upload.single('dataFile'), (req, res, next) => {
-  const title = req.body.title;
-  const filename= req.body.filename
-  const file = req.body.file;
-  if (!file) {
-      return res.status(400).send({ message: 'Please upload a file.' });
-  }
-  db.query(
-    "INSERT INTO book (title, filename, file, uploadDate, downloadNum) VALUES (?,?,?,?,?)",
-    [title, filename , file, now(), 0],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.send("Values Inserted");
-      }
-    }
-  )
-});
+// app.post("/book/create", upload.single('dataFile'), (req, res, next) => {
+//   const title = req.body.title;
+//   const filename= req.body.filename
+//   const file = req.body.file;
+//   if (!file) {
+//       return res.status(400).send({ message: 'Please upload a file.' });
+//   }
+//   db.query(
+//     "INSERT INTO book (title, filename, file, uploadDate, downloadNum) VALUES (?,?,?,?,?)",
+//     [title, filename , file, now(), 0],
+//     (err, result) => {
+//       if (err) {
+//         console.log(err);
+//       } else {
+//         res.send("Values Inserted");
+//       }
+//     }
+//   )
+// });
 
 //게시판1 READ
 
