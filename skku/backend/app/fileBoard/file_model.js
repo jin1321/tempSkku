@@ -1,13 +1,25 @@
 var fileBoard = module.exports;
 const config = require("../config");
 
-const getPageQry = "SELECT count(*) AS pageNum FROM book";
-
 //처음 bookboard 열었을때 
-const getBookQry = "SELECT * FROM mydb.book LIMIT 10 OFFSET 0;"
+const getBookQry = "SELECT * FROM mydb.book LIMIT 10 OFFSET 0";
 
 //pageNum 받았을 때 table에서 받아오기
-const getBookPageQry = "SELECT * FROM mydb.book LIMIT 10 OFFSET ?"
+const getBookPageQry = "SELECT * FROM mydb.book LIMIT 10 OFFSET ?";
+
+//book 정보 받으면 table 에 추가
+const insertBookQry = 
+    "INSERT INTO mydb.book (title, filename, file, uploadDate, downloadNum" +
+    "VALUES ( ?, ?, ?, NOW(), 0)";
+
+//받은 id에 해당하는 row 수정
+const updateBookQry = 
+    "UPDATE mydb.book SET title = ?, filename = ?, file = ?, uploadDate = NOW()" +
+    "WHERE id = ?";
+
+//받은 id에 해당하는 row 삭제
+const deleteBookQry = "DELETE FROM mydb.book WHERE id=?";
+
 
 fileBoard.getPageNum = function getPageNum(callback){
     config.db.query(getPageQry, (err,result) => {
@@ -28,6 +40,33 @@ fileBoard.getBook = function getBook(callback) {
 fileBoard.getBookPage = function getBookPage(pageNum, callback){
     config.db.query(getBookPageQry, pageNum, (err, result) => {
         if (err) callback(err,null);
+        callback(null, result);
+    });
+}
+
+fileBoard.insertBook = function insertBook(title, filename, file, callback) {
+    const info = [title, filename, file];
+    config.db.query(insertBookQry, info, (err, result) => {
+        if (err) callback(err, null);
+
+        callback(null, err);
+    });
+}
+
+fileBoard.updateBook = function updateBook(id, title, filename, file, callback){
+    const info = [title, filename, file, id];
+    config.db.query(updateBookQry, info, (err, result) => {
+        if (err) callback(err, null);
+
+        callback(null, err);
+    });
+    
+}
+
+fileBoard.deleteBook = function deleteBook(id, callback) {
+    config.db.query(deleteBookQry, id, (err, result) => {
+        if (err) callback(err, null);
+
         callback(null, result);
     });
 }
