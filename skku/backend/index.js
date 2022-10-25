@@ -12,6 +12,8 @@ app.use(cors());
 // app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
+app.use(require("./app/fileBoard/router"));
+
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -87,19 +89,19 @@ app.get("/journal", (req,res)  => {
 });
 
 
-app.get("/book", (req, res)=>{
-  const sqlQuery1 = "SELECT COUNT(*) FROM mydb.book"
-  const sqlQuery2 = 
-    "SELECT * FROM mydb.book LIMIT 10 OFFSET 0;"
-  const res1 = {}
-  db.select(sqlQuery1, function(err, data1) {
-    db.select(sqlQuery2, function(err, data2) {
-      res1.pageNum = data1
-      res1.boardData = data2
-      res.end(JSON.stringify(res1))
-    })
-  });
-});
+// app.get("/book", (req, res)=>{
+//   const sqlQuery1 = "SELECT COUNT(*) FROM mydb.book"
+//   const sqlQuery2 = 
+//     "SELECT * FROM mydb.book LIMIT 10 OFFSET 0;"
+//   const res1 = {}
+//   db.select(sqlQuery1, function(err, data1) {
+//     db.select(sqlQuery2, function(err, data2) {
+//       res1.pageNum = data1
+//       res1.boardData = data2
+//       res.end(JSON.stringify(res1))
+//     })
+//   });
+// });
 
 app.get("/journal_with_pagenum", (req, res) => {
     // req.body 안에 num 담겨있음
@@ -145,7 +147,7 @@ app.get("/research/journal_id", function(req, res) {
 //게시판1 UPDATE
 
 app.put("/book/update", (req, res) => {
-  const id = req.boday.id
+  const id = req.body.id
   const title = req.body.title;
   const filename = req.body.filename;
   const file = req.body.file

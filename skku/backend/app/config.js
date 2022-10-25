@@ -4,8 +4,8 @@ var config = module.exports;
 
 config.db = mysql.createConnection({
     user: "root",
-    host: "localhost",
-    password: "password",
+    host: "127.0.0.1",
+    password: "Mangoleahchoi3!",
     database: "mydb",
 });
 

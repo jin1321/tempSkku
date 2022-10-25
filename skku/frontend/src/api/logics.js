@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import API_URL from "./serverURL";
 
@@ -16,6 +16,12 @@ const ContextProvider = ({ children }) => {
     const [ bookContent, setBookContent ] = useState();
     const [ JCState, setJCState ] = useState(0);
     const [ BCState, setBCState ] = useState(0);
+
+    useEffect(() => {
+        axios.post(`${API_URL}/book_with_pagenum`, {pageNum: 1}, (response) => {
+            console.log(response.data)
+        })
+    }, [])
 
     const getJournalBoard = () => {
         setJournalState(0);
