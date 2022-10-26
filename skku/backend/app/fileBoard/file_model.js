@@ -1,6 +1,8 @@
 var fileBoard = module.exports;
 const config = require("../config");
 
+const getPageQry = "SELECT COUNT (*) AS pageNum FROM mydb.book"
+
 //처음 bookboard 열었을때 
 const getBookQry = "SELECT * FROM mydb.book LIMIT 10 OFFSET 0";
 
@@ -19,6 +21,9 @@ const updateBookQry =
 
 //받은 id에 해당하는 row 삭제
 const deleteBookQry = "DELETE FROM mydb.book WHERE id=?";
+
+//받은 id에 해당하는 file 반환
+const getBookFileQry = "SELECT file FROM mydb.book WHERE id=?";
 
 
 fileBoard.getPageNum = function getPageNum(callback){
@@ -65,6 +70,14 @@ fileBoard.updateBook = function updateBook(id, title, filename, file, callback){
 
 fileBoard.deleteBook = function deleteBook(id, callback) {
     config.db.query(deleteBookQry, id, (err, result) => {
+        if (err) callback(err, null);
+
+        callback(null, result);
+    });
+}
+
+fileBoard.getBookFile = function getBookFile( id, callback){
+    config.db.query(getBookFileQry, id, (err, result) => {
         if (err) callback(err, null);
 
         callback(null, result);
