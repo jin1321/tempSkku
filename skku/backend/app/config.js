@@ -15,3 +15,5 @@ config.db = mysql.createPool({
 });
 
 config.express = {
+    port: 3001
+};
