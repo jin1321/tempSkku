@@ -17,7 +17,7 @@ function getBook(req, res) {
                     pageNum : Math.ceil(result2[0]["pageNum"]/10),
                     boardData: result}
                 );
-            })
+            });
         }
     });
 }
@@ -31,7 +31,7 @@ function getBookPage(req, res) {
         }
         console.log(result);
         res.json(result);
-    })
+    });
         // res.json("HI");
 
 }
