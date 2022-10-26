@@ -1,17 +1,12 @@
 const mysql = require("mysql2");
-const pw = require("./pw")
 
 var config = module.exports;
 
 config.db = mysql.createPool({
-    user: "admin",
-    host: "skkuboardserver.czlefodezyvn.ap-northeast-2.rds.amazonaws.com",
-    password: `${pw}`,
+    user: "root",
+    host: "127.0.0.1",
+    password: `Mangoleahchoi3!`,
     database: "mydb",
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-
 });
 
 config.express = {

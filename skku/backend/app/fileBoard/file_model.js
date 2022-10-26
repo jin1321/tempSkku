@@ -43,9 +43,16 @@ fileBoard.getBook = function getBook(callback) {
 }   
 
 fileBoard.getBookPage = function getBookPage(pageNum, callback){
-    config.db.query(getBookPageQry, pageNum, (err, result) => {
-        console.log(pageNum);
-        console.log(result);
+    var start = 0
+    if (pageNum == 1){
+        start = 0
+    }
+    else{
+        start = ((pageNum-1) *10)
+    }
+    config.db.query(getBookPageQry, start, (err, result) => {
+        // console.log(pageNum);
+        // console.log(result);
         if (err) callback(err,null);
         callback(null, result);
     });

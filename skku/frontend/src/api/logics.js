@@ -18,7 +18,7 @@ const ContextProvider = ({ children }) => {
     const [ BCState, setBCState ] = useState(0);
 
     useEffect(() => {
-        axios.post(`${API_URL}/downloadBook`, {id: 1}, (response) => {
+        axios.post(`${API_URL}/book_with_pagenum`, {pageNum: 1}, (response) => {
             console.log(response.data)
         })
     }, [])
