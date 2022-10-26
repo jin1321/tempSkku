@@ -22,6 +22,8 @@ function getBook(req, res) {
     });
 }
 
+
+
 function getBookPage(req, res) { 
     pageNum = req.body.pageNum;
     console.log(pageNum);
@@ -69,15 +71,29 @@ function deleteBook(req, res) {
             res.json({ errMsg: "Error: Failed on deleting book" });
         }
     });
+}
 
+//다운로드는 db에 파일을 저장하는 형식이 아니라 주소를 저장하는 형식을 사용했습니다
+//skku\backend 경로 안에 저장된 파일을 다운로드 합니다. 
+function getBookFile(req, res) {
+    const bookId = req.body.id;
+    fileBoard.getBookFile( bookId , (err, result) => {
+        if(err) {
+            console.log(err)
+            res.json({ errMsg: "Error: Failed on downloading book" });
+        }
+        console.log(result[0]);
+        res.download(result[0].file);
+    });
 }
 
 
 
 router.get("/book",getBook);
 router.post("/book_with_pagenum",getBookPage);
-router.post("/createBook", createBook);
-router.post("/updateBook", updateBook);
-router.post("/deleteBook", deleteBook);
+router.post("/createbook", createBook);
+router.post("/updatebook", updateBook);
+router.post("/deletebook", deleteBook);
+router.post("/book_id", getBookFile);
 
 module.exports = router;
