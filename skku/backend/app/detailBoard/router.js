@@ -13,7 +13,7 @@ function writeNewPost (req, res) {
 
         }
         else {
-            res.send("Values Inserted");
+            console.log("Values Inserted");
         }
     }) 
 }
@@ -110,6 +110,6 @@ router.post("/createreport", writeNewPost);
 router.get("/report", getReportPage);
 router.post("/report_with_pagenum", getBoardDataPagenum);
 router.post("/updatereport", updateBoardData)
-router.post("/deletepost", deleteBoardData)
+router.post("/deletereport", deleteBoardData)
 router.post("/reportdetails", getDetailPage)
 module.exports = router;

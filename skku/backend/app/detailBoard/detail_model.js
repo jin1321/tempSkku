@@ -9,7 +9,7 @@ const insertNewPostQry =
 const getTotalPostsNumQry = "SELECT COUNT(*) AS pageNum FROM mydb.report"
 const getFirstPageQry = "SELECT * FROM mydb.report LIMIT 10 OFFSET 0;"
 //READ 페이지번호에 해당하는 게시물 불러오기
-const getPageNumBoardQry = "SELECT * FROM mydb.report LIMIT ?*10 OFFSET ?*10-10"
+const getPageNumBoardQry = "SELECT * FROM mydb.report WHERE ? <id <= ? + 10"
 
 //UPDATE title content 수정
 const updatePostQry = "UPDATE mydb.report SET title = ?, content=? WHERE id = ?"
@@ -46,7 +46,15 @@ detail.getfirstPage = function getfirstPage(callback) {
 }
 //READ 페이지번호 받아와서 해당 게시글 불러오기
 detail.getBoardPageNum = function getBoardPageNum(pageNum, callback) {
-    config.db.query(getPageNumBoardQry, [pageNum], (err, result) => {
+    var start = 0
+    if (pageNum == 1){
+        start = 0
+    }
+    else{
+        start = ((pageNum-1) *10)
+    }
+    config.db.query(getPageNumBoardQry, [start, start], (err, result) => {
+
         if(err) callback(err, null);
         callback(null, result);
     })
