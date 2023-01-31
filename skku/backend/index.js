@@ -1,4 +1,6 @@
-
+const path = require('path');
+const fileUpload = require('express-fileupload');
+const fs = require('fs');
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
@@ -12,9 +14,16 @@ app.use(cors());
 // app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 
+app.use(fileUpload({
+  useTempFiles : true,
+  createParentPath: true
+ }));
+
 app.use(require("./app/fileBoard/router"));
 app.use(require("./app/detailBoard/router"));
 app.use(require("./app/Homepage/router"));
+app.use(require("./app/fileUpload/router"));
+app.use(require("./app/fileDownload/router"));
 
 const db = mysql.createConnection({
     user: "root",
@@ -22,6 +31,9 @@ const db = mysql.createConnection({
     password: "password",
     database: "mydb",
 });
+
+
+
 //홈페이지 announcement 최근게시글 3개 보내기
 //홈페이지 최근게시물 2개 보내기
 app.get("/", (req, res)=>{

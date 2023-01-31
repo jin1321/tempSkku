@@ -86,7 +86,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import moment from 'moment';
-
+import axios from 'axios';
 
 
 
@@ -101,10 +101,40 @@ function Journal() {
         bookPage, journalContent, bookContent, JCState, BCState,
         getJournalBoard, getBookBoard, getJournalBoardPage, getBookBoardPage,
         getJournalContent, getBookContent } = useContext(SocketContext);
-    
+      
+      
+
+      const [selectedFile, setSelectedFile] = useState({ selectedFile: null});
+      function onChangeHandler (event){
+         selectedFile["selectedFile"] = event.target.files
+     }
+
+     function onClickHandler (){
+      const data = new FormData()
+      for(var x = 0; x<selectedFile["selectedFile"].length; x++) {
+          data.append('file', selectedFile["selectedFile"][x])
+      }
+         const config = {
+            header: {
+               'content-type': 'multipart/form-data'
+            },
+      };
+      axios.post("http://localhost:3001/upload", data, config)
+            // receive two    parameter endpoint url ,form dat)
+   
+   .then(res => { // then print response status
+       console.log(res.statusText)
+    })
+   
+   }
+      
+
+      
+      
+
     const [journalItems, setJournalItems] = useState([])
     useEffect(() => {
-        fetch("http://localhost:3001/research/journal")
+        axios.get("http://localhost:3001/research/journal")
         .then(res => res.json())
         .then(
          (res)=> setJournalItems(res));
@@ -135,9 +165,9 @@ function Journal() {
             <Title><h1>Journal</h1></Title>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
 
+            
+           
 
-
-               
             <TableHead>
             <TableRow>
                      <TableCell align="center">번호</TableCell>
@@ -150,6 +180,8 @@ function Journal() {
                      </TableRow>
                </TableHead>
                
+               <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
+            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
                <TableBody>
                 {journalItems.map(item =>
                        

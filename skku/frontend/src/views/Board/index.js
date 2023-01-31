@@ -23,7 +23,6 @@ export const Board = (props) => {
     return (
         <Main>
             <Hero background={background} height={`${heroHeight}px`} />
-
             <PostContainer>
 
                 <Header>Recent Posts</Header>
