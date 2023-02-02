@@ -110,7 +110,7 @@ function Journal() {
      }
 
      function onClickHandler (){
-      const data = new FormData()
+      const data = new Blob()
       for(var x = 0; x<selectedFile["selectedFile"].length; x++) {
           data.append('file', selectedFile["selectedFile"][x])
       }
