@@ -1,10 +1,11 @@
+/*
 
 const router = require("express").Router();
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-    accessKeyId: "AKIA52KB5DNQITVZDMEF",
-    secretAccessKey: "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"
+    accessKeyId: "AKIA52KB5DNQOOBPP36H",
+    secretAccessKey: "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"
 });
 
 const listObjects = params => {
@@ -27,7 +28,7 @@ const listObjects = params => {
     });
 }
 
-listObjects({ Bucket: 'skku-test-bucket', Prefix: "path/to/", MaxKeys: 1000 });
+listObjects({ Bucket: 'skkutest', Prefix: "path/to/", MaxKeys: 1000 });
 
 const downloadFile = params => {
     s3.getObject(params.downloadParams, function (s3Err, data) {
@@ -40,7 +41,7 @@ const downloadFile = params => {
 
 
 
-/*
+
 const os = require('os');
 var fs = require('fs');
 
@@ -70,7 +71,8 @@ function fileDownload(req, res) {
         }          
     }) 
 } 
-*/
+
 
 router.post("/download", downloadFile);
 module.exports = router; 
+*/

@@ -1,14 +1,17 @@
+/*
 const router = require("express").Router();
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
+    accessKeyId: 'AKIA52KB5DNQOOBPP36H',
+    secretAccessKey: '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',
+    region: 'us-east-s2'
 });
 
 
 const uploadFile = (req, res) => {
     try{
         var file = req.files.file;
-        console.log(req);
         console.log(req.files.file.data);
         console.log(req.header);
         var filename = file.name;
@@ -19,7 +22,7 @@ const uploadFile = (req, res) => {
         });}
         else{
                 const params = {
-                    Bucket : "skku-test-bucket",
+                    Bucket : "skkutest",
                     Key : filename,
                     Body : file.data
                 }
@@ -50,7 +53,7 @@ const uploadFile = (req, res) => {
   }
 
 
-/*
+
 const uploadFile = (fileName) => {
     // Read content from the file
     const fileContent = fs.readFileSync(fileName);
@@ -130,9 +133,9 @@ function fileUpload(req, res) {
     })
 
 }
-*/
+
 
 router.post("/upload", uploadFile);
 module.exports = router; 
-
+*/
 

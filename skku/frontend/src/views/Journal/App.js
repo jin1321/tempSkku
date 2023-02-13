@@ -1,80 +1,3 @@
-/*import './styles.css';
-import moment from 'moment';
-import { Link } from "react-router-dom";
-import axios from 'axios';
-import {useState, useEffect, useContext} from 'react';
-import API_URL from '../../api/serverURL';
-import Pagination from './Pagination.js';
-import { Hero } from "../../components";
-import background from "../../assets/images/mainbackground.png";
-import { SocketContext } from "../../api/logics";
-
-
-function JournalBoard(){
-   const { journal, book, journalState, bookState, journalPage,
-      bookPage, journalContent, bookContent, JCState, BCState,
-      getJournalBoard, getBookBoard, getJournalBoardPage, getBookBoardPage,
-      getJournalContent, getBookContent } = useContext(SocketContext);
-   const heroHeight = Math.min(window.innerWidth / 2, 220);
-   const [postsPerPage, setPostsPerPage] = useState(10);
-   
-   useEffect(()=> {
-   getJournalBoard();
-   }, [])
-
-
-
-   return (
-   <div className="container" style={{ fontFamily: 'Noto Sans Korean,Malgun Gothic,sans-serif' }}>
-
-      <Hero background={background} height={`${heroHeight}px`} />
-      <div className='Table'>
-            <div className="lf-menu-nav" ><span>Journal</span></div>
-               <div className="lf-contents"></div>
-               
-               <div style={{ padding: "20px 240px" }}></div>
-                  <table className="board_list text-center">
-                        <colgroup>
-                           <col width="5%" />
-                           <col width="*" />
-                           <col width="30%" />
-                           <col width="10%" />
-                           <col width="*" />
-                           <col width="*" />
-                        </colgroup>
-                        <thead>
-                           <tr>
-                           <th>번호</th>
-                           <th>제목</th>
-                           <th>파일명</th>
-                           <th>첨부파일</th>
-                           <th>작성일시</th>
-                           <th>다운로드수</th>
-                           
-                           </tr>
-                        </thead>
-                        <tbody className='postsList'>
-                           {journal.values().map((post) =>
-                           <tr key={post.id}>
-                              <td>{post.id}</td>
-                              <td className="text-left" >{post.title}</td>
-                              <td>{post.filename}</td>
-                              <td>{post.file}</td>
-                              <td>{moment(post.upload_date).format('YYYY-MM-DD')}</td>
-                              <td>{post.download_num}</td>
-                           
-                           </tr>
-                           )}
-                        </tbody>
-                  </table>
-      </div>
-      <Pagination postsPerPage={postsPerPage} totalPosts={journal.length}></Pagination>
-   </div>
-
-   )
-};
-
-export default JournalBoard;*/
 import React,{useContext, useEffect, useState, Component} from 'react'
 import { SocketContext } from "../../api/logics";
 import API_URL from '../../api/serverURL';
@@ -102,36 +25,46 @@ function Journal() {
         getJournalBoard, getBookBoard, getJournalBoardPage, getBookBoardPage,
         getJournalContent, getBookContent } = useContext(SocketContext);
       
+      /*
       
-
-      const [selectedFile, setSelectedFile] = useState({ selectedFile: null});
-      function onChangeHandler (event){
-         selectedFile["selectedFile"] = event.target.files
+      const [selectedFile, setSelectedFile] = useState({});
+      
+      const onChangeHandler = (event) => {
+         
+         selectedFile["selectedFile"]= event.target.files;
      }
 
-     function onClickHandler (){
-      const data = new Blob()
-      for(var x = 0; x<selectedFile["selectedFile"].length; x++) {
-          data.append('file', selectedFile["selectedFile"][x])
+     
+
+     function onClickHandler ()
+     {
+      /*
+      if (!selectedFile) {
+         return;
       }
-         const config = {
-            header: {
-               'content-type': 'multipart/form-data'
-            },
-      };
-      axios.post("http://localhost:3001/upload", data, config)
-            // receive two    parameter endpoint url ,form dat)
-   
-   .then(res => { // then print response status
-       console.log(res.statusText)
-    })
-   
+      const data = new FormData();
+      for (const file of selectedFile["selectedFile"] ){
+         data.append(`file`, file)
+      }
+      
+      
+      const formData = new FormData();
+      formData.append("name", selectedFile["selectedFile"].name);
+      for(let i =0; i < selectedFile["selectedFile"].length; i++) {
+            formData.append("files", selectedFile["selectedFile"].files[i]);
+      }
+      
+      
+      fetch("http://localhost:3001/upload", {method: 'POST', body: formData, headers: {
+         "Content-Type": "multipart/form-data"
+       }})
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.error(err));
+
    }
-      
-
-      
-      
-
+   */
+   
     const [journalItems, setJournalItems] = useState([])
     useEffect(() => {
         axios.get("http://localhost:3001/research/journal")
@@ -139,8 +72,8 @@ function Journal() {
         .then(
          (res)=> setJournalItems(res));
     }, []);
-
-    console.log(journalItems);
+    
+   
     /*
     const downloadFileData = () => {
       fetch('http://localhost:3001/research/journal_id')
@@ -180,8 +113,7 @@ function Journal() {
                      </TableRow>
                </TableHead>
                
-               <input type="file" class="form-control" multiple onChange={onChangeHandler}/>
-            <button type="button" class="btn btn-success btn-block" onClick={onClickHandler}>Upload</button> 
+            
                <TableBody>
                 {journalItems.map(item =>
                        
