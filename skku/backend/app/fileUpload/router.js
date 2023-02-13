@@ -1,12 +1,6 @@
 /*
 const router = require("express").Router();
 const fs = require('fs');
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3({
-    accessKeyId: 'AKIA52KB5DNQOOBPP36H',
-    secretAccessKey: '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',
-    region: 'us-east-s2'
-});
 
 
 const uploadFile = (req, res) => {
