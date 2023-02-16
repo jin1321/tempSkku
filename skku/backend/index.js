@@ -21,7 +21,7 @@ app.use(fileUpload({
 
 app.use(require("./app/fileBoard/router"));
 app.use(require("./app/detailBoard/router"));
-// app.use(require("./app/Homepage/router"));
+app.use(require("./app/Homepage/router"));
 /*
 app.use(require("./app/fileUpload/router"));
 app.use(require("./app/fileDownload/router"));
