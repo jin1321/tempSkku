@@ -21,7 +21,7 @@ app.use(fileUpload({
 
 app.use(require("./app/fileBoard/router"));
 app.use(require("./app/detailBoard/router"));
-app.use(require("./app/Homepage/router"));
+// app.use(require("./app/Homepage/router"));
 /*
 app.use(require("./app/fileUpload/router"));
 app.use(require("./app/fileDownload/router"));
@@ -39,17 +39,17 @@ const db = mysql.createConnection({
 //홈페이지 announcement 최근게시글 3개 보내기
 //홈페이지 최근게시물 2개 보내기
 app.get("/", (req, res)=>{
-  const sqlQuery1 = "SELECT * FROM ( SELECT * FROM mydb.announcement ORDER BY uploadDate DESC LIMIT 3 OFFSET 0) as announcement_desc GROUP BY title;"
-  const sqlQuery2 = "SELECT * FROM ( SELECT * FROM mydb.project ORDER BY uploadDate DESC LIMIT 2 OFFSET 0) as project_desc GROUP BY title;"
-  const res1 = {}
-
-  db.query(sqlQuery1, function(err, data1) {
-    db.query(sqlQuery2, function(err, data2) {
-      res1.announcement = data1
-      res1.project = data2
-      res.end(JSON.stringify(res1))
-    })
-  });
+  // const sqlQuery1 = "SELECT * FROM ( SELECT * FROM mydb.announcement ORDER BY uploadDate DESC LIMIT 3 OFFSET 0) as announcement_desc GROUP BY title;"
+  // const sqlQuery2 = "SELECT * FROM ( SELECT * FROM mydb.project ORDER BY uploadDate DESC LIMIT 2 OFFSET 0) as project_desc GROUP BY title;"
+  // const res1 = {}
+  res.send("health check");
+  // db.query(sqlQuery1, function(err, data1) {
+  //   db.query(sqlQuery2, function(err, data2) {
+  //     res1.announcement = data1
+  //     res1.project = data2
+  //     res.end(JSON.stringify(res1))
+  //   })
+  // });
 })
 
 
