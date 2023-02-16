@@ -26,5 +26,5 @@ function homepage(req, res){
 
 
 
-router.get("/", homepage)
+router.get("/home", homepage)
 module.exports = router;
